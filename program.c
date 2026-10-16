@@ -1,11 +1,26 @@
 #include <stdio.h>
 
 #define NB_VALEURS 3
-#define MAX_LONGUEUR 50
+#define MAX_LIGNES 15
+
+void afficher_ligne_histov(int valeurs[], int taille, double y)
+{
+    printf("| ");
+    for (int k = 0; k < taille; k++) {
+        if (valeurs[k] >= y) {
+            printf("xxx ");
+        } else {
+            printf("    ");
+        }
+    }
+    printf("\n");
+}
 
 int main(void)
 {
     int valeurs[NB_VALEURS] = { 8, 4, 12 };
+
+    // Recherche du maximum (étape 2)
     int maximum = valeurs[0];
     for (int i = 1; i < NB_VALEURS; i++) {
         if (valeurs[i] > maximum) {
@@ -13,16 +28,12 @@ int main(void)
         }
     }
 
-     double echelle = (double) MAX_LONGUEUR / maximum;
-
-    for (int i = 0; i < NB_VALEURS; i++) {
-        printf("| ");
-        for (int j = 0; j < valeurs[i]; j++) {
-            printf("x");
-        }
-        printf(" %d\n", valeurs[i]);
+    // Boucle du logigramme : i < MAX_LIGNES
+    for (int i = 0; i < MAX_LIGNES; i++) {
+        double y = (double) maximum * (MAX_LIGNES - i) / MAX_LIGNES;
+        afficher_ligne_histov(valeurs, NB_VALEURS, y);
     }
-    printf("+-------------------------------------------------------\n");
+    printf("+---------------------------------------\n");
 
     return 0;
 }
